@@ -1,16 +1,28 @@
-# This is a sample Python script.
+from tkinter import *
+import pandas
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+BACKGROUND_COLOR = "#B1DDC6"
 
+window = Tk()
+window.title("Flash-cards")
+window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+canvas1 = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
+image1 = PhotoImage(file="images/card_back.png", width=800, height=530)
+canvas1.create_image(450, 280, image=image1)
+canvas1.grid(row=0, column=0, columnspan=2)
 
+canvas2 = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
+image2 = PhotoImage(file="images/card_front.png", width=800, height=530)
+canvas2.create_image(450, 280, image=image2)
+canvas2.grid(row=0, column=0, columnspan=2)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+image3 = PhotoImage(file="images/wrong.png")
+button1 = Button(image=image3, highlightthickness=0)
+button1.grid(row=1, column=0)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+image4 = PhotoImage(file="images/right.png")
+button2 = Button(image=image4, highlightthickness=0)
+button2.grid(row=1, column=1)
+
+window.mainloop()
