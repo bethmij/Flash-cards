@@ -4,7 +4,8 @@ from tkinter import *
 import pandas
 
 BACKGROUND_COLOR = "#B1DDC6"
-
+random_choice = ""
+timer = ""
 
 window = Tk()
 window.title("Flash-cards")
@@ -12,21 +13,27 @@ window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 
 
 def set_french_word():
+    global random_choice, timer
     try:
         data = pandas.read_csv("data/french_words.csv")
     except FileNotFoundError:
         pass
     else:
         french_list = data.to_dict(orient="records")
-        canvas.itemconfig(label_title, text="French")
+        canvas.itemconfig(bg_img, image=image_front)
+        canvas.itemconfig(label_title, text="French", fill="black")
         random_choice = random.choice(french_list)
-        canvas.itemconfig(label_word, text=random_choice['French'])
+        canvas.itemconfig(label_word, text=random_choice['French'], fill="black")
 
-        # time.sleep(500)
+    timer = window.after(3000, set_english_word)
 
-        canvas.itemconfig(bg_img, image=image_back)
-        canvas.itemconfig(label_title, text="English")
-        canvas.itemconfig(label_word, text=random_choice['English'])
+
+def set_english_word():
+    global random_choice, timer
+    canvas.itemconfig(bg_img, image=image_back)
+    canvas.itemconfig(label_title, text="English", fill="white")
+    canvas.itemconfig(label_word, text=random_choice['English'], fill="white")
+    window.after_cancel(timer)
 
 
 canvas = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
