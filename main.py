@@ -4,7 +4,7 @@ from tkinter import *
 import pandas
 
 BACKGROUND_COLOR = "#B1DDC6"
-random_choice = ""
+random_choice = {}
 timer = ""
 
 window = Tk()
@@ -36,7 +36,7 @@ def set_english_word():
     window.after_cancel(timer)
 
 
-canvas = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
+canvas = Canvas(bg=BACKGROUND_COLOR, width=900, height=560, highlightthickness=0)
 image_back = PhotoImage(file="images/card_back.png", width=800, height=530)
 image_front = PhotoImage(file="images/card_front.png", width=800, height=530)
 bg_img = canvas.create_image(450, 280, image=image_front)
