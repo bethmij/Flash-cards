@@ -31,4 +31,4 @@ label_french.place(x=370, y=150)
 label_english = Label(canvas2, text="english", font=("Arial", 60, "bold"), bg="white")
 label_english.place(x=310, y=300)
 
-window.mainloop()d
+window.mainloop()
