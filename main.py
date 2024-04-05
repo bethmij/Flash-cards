@@ -25,4 +25,10 @@ image4 = PhotoImage(file="images/right.png")
 button2 = Button(image=image4, highlightthickness=0)
 button2.grid(row=1, column=1)
 
+label_french = Label(canvas2, text="french", font=("Arial", 40, "italic"), bg="white")
+label_french.place(x=370, y=150)
+
+label_english = Label(canvas2, text="english", font=("Arial", 60, "bold"), bg="white")
+label_english.place(x=310, y=300)
+
 window.mainloop()
