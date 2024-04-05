@@ -1,9 +1,10 @@
 import random
+import time
 from tkinter import *
 import pandas
-from setuptools._distutils.dist import command_re
 
 BACKGROUND_COLOR = "#B1DDC6"
+
 
 window = Tk()
 window.title("Flash-cards")
@@ -17,21 +18,24 @@ def set_french_word():
         pass
     else:
         french_list = data.to_dict(orient="records")
-        canvas2.itemconfig(label_title, text="French")
-        canvas2.itemconfig(label_word, text=random.choice(french_list)['French'])
+        canvas.itemconfig(label_title, text="French")
+        random_choice = random.choice(french_list)
+        canvas.itemconfig(label_word, text=random_choice['French'])
+
+        # time.sleep(500)
+
+        canvas.itemconfig(bg_img, image=image_back)
+        canvas.itemconfig(label_title, text="English")
+        canvas.itemconfig(label_word, text=random_choice['English'])
 
 
-canvas1 = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
-image1 = PhotoImage(file="images/card_back.png", width=800, height=530)
-canvas1.create_image(450, 280, image=image1)
-canvas1.grid(row=0, column=0, columnspan=2)
-
-canvas2 = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
-image2 = PhotoImage(file="images/card_front.png", width=800, height=530)
-canvas2.create_image(450, 280, image=image2)
-label_title = canvas2.create_text(450, 150, text="", font=("Arial", 40, "italic"))
-label_word = canvas2.create_text(450, 300, text="", font=("Arial", 60, "bold"))
-canvas2.grid(row=0, column=0, columnspan=2)
+canvas = Canvas(bg=BACKGROUND_COLOR, width=900, height=650, highlightthickness=0)
+image_back = PhotoImage(file="images/card_back.png", width=800, height=530)
+image_front = PhotoImage(file="images/card_front.png", width=800, height=530)
+bg_img = canvas.create_image(450, 280, image=image_front)
+label_title = canvas.create_text(450, 150, text="", font=("Arial", 40, "italic"))
+label_word = canvas.create_text(450, 300, text="", font=("Arial", 60, "bold"))
+canvas.grid(row=0, column=0, columnspan=2)
 
 image3 = PhotoImage(file="images/wrong.png")
 button1 = Button(image=image3, highlightthickness=0, command=set_french_word)
