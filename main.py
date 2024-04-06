@@ -16,9 +16,10 @@ window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 def set_french_word():
     global random_choice, timer, word_list
     try:
-        data = pandas.read_csv("data/french_words.csv")
+        data = pandas.read_csv("data/to_learn.csv")
     except FileNotFoundError:
-        pass
+        og_data = pandas.read_csv("data/french_words.csv")
+        word_list = og_data.to_dict(orient="records")
     else:
         word_list = data.to_dict(orient="records")
         canvas.itemconfig(bg_img, image=image_front)
@@ -37,17 +38,12 @@ def set_english_word():
     window.after_cancel(timer)
 
 
-def to_dict():
-    list_dict = {"French": [], "English": []}
-    for list in word_list:
-        list_dict['French'].append(list['French'])
-        list_dict['English'].append(list['English'])
-    list_dict = pandas.DataFrame.to_csv(word_list, index=False)
-
-
 def correct_word():
     global word_list, random_choice
     word_list.remove(random_choice)
+    data = pandas.DataFrame(word_list)
+    data.to_csv("data/to_learn.csv", index=False)
+    set_french_word()
 
 
 canvas = Canvas(bg=BACKGROUND_COLOR, width=900, height=560, highlightthickness=0)
@@ -59,11 +55,11 @@ label_word = canvas.create_text(450, 300, text="", font=("Arial", 60, "bold"))
 canvas.grid(row=0, column=0, columnspan=2)
 
 image3 = PhotoImage(file="images/wrong.png")
-button1 = Button(image=image3, highlightthickness=0, command=correct_word)
+button1 = Button(image=image3, highlightthickness=0, command=set_french_word)
 button1.grid(row=1, column=0)
 
 image4 = PhotoImage(file="images/right.png")
-button2 = Button(image=image4, highlightthickness=0, command=set_french_word)
+button2 = Button(image=image4, highlightthickness=0, command=correct_word)
 button2.grid(row=1, column=1)
 
 set_french_word()
