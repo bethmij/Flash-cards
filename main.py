@@ -37,12 +37,17 @@ def set_english_word():
     window.after_cancel(timer)
 
 
+def to_dict():
+    list_dict = {"French": [], "English": []}
+    for list in word_list:
+        list_dict['French'].append(list['French'])
+        list_dict['English'].append(list['English'])
+    list_dict = pandas.DataFrame.to_csv(word_list, index=False)
+
+
 def correct_word():
     global word_list, random_choice
-
-    for index, word in enumerate(word_list):
-        if word['French'] == random_choice['French']:
-            del word_list[index]
+    word_list.remove(random_choice)
 
 
 canvas = Canvas(bg=BACKGROUND_COLOR, width=900, height=560, highlightthickness=0)
